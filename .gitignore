@@ -1,0 +1,20 @@
+# Local compiler outputs, device memory and machine-specific metadata are not release assets.
+/build/
+/.vscode/
+**/__pycache__/
+*.py[cod]
+*.code-workspace
+compile_commands.json
+*.elf
+*.axf
+*.map
+*.bin
+*.hex
+*.o
+*.obj
+*.a
+*.log
+*.bak
+*.dump
+.env
+.env.*

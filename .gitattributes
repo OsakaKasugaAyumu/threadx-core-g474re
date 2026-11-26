@@ -1,0 +1,10 @@
+# Use LF for publishing; sources and reference evidence have stronger byte-for-byte locks.
+* text=auto eol=lf
+/main/* -text !eol
+/threadx_core/* -text !eol
+/boards/** -text !eol
+/reports/core-c2/** -text !eol
+/LICENSES/** -text !eol
+/tools/** -text !eol
+/demo_threadx/assets/** -text !eol
+/demo_threadx/core/examples/** -text !eol

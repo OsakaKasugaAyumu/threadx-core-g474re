@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
+  <title>ThreadX 单核源码阅读指南 · 总览</title>
+  <link rel="stylesheet" href="demo_threadx/assets/reader.css">
+</head>
+<body>
+<a class="skip" href="#site-main">跳到正文</a>
+<header id="site-top"><div class="bar"><a class="brand" href="index.html"><b>ThreadX</b> / 源码阅读指南</a><span class="mark">6.2.0 · CORTEX-M4 / GNU</span></div><nav class="bar site-nav" aria-label="站点栏目"><a href="index.html" aria-current="page">总览</a><a href="demo_threadx/core/build-flash.html">上板教程</a><a href="demo_threadx/core/index.html">裁剪源码</a><a href="demo_threadx/index.html">未裁剪对照</a><a href="index.html#site-evidence">验证与来源</a></nav></header>
+<main class="site-home" id="site-main">
+  <section class="hero home-intro" aria-labelledby="site-title">
+    <p class="eyebrow">学习指南 / 单核 · Cortex-M4F · GNU</p>
+    <h1 id="site-title">ThreadX 单核源码阅读指南</h1>
+    <p class="lead">从同一个通用 Demo 出发：可以先把它跑在 NUCLEO-G474RE 上，也可以不接开发板，从内核怎样关中断、切换线程读起。</p>
+  </section>
+  <section class="home-routes" aria-labelledby="site-routes">
+    <h2 id="site-routes">你想从哪里开始？</h2>
+    <div class="route-pair">
+      <div class="route-choice"><p class="eyebrow">动手路线 · Windows / PowerShell</p>
+        <h3><a href="demo_threadx/core/build-flash.html">先把板跑起来 →</a></h3>
+        <p>检查已有工具，编译板级镜像；认板、备份后再决定是否写入。最后看 8 个线程的计数，而不是等串口打印。</p></div>
+      <div class="route-choice"><p class="eyebrow">源码路线 · 不需要开发板</p>
+        <h3><a href="demo_threadx/core/index.html">只读内核，不接板 →</a></h3>
+        <p>先读项目配置，再从 <code>tx_port.h</code> 进入临界区，沿初始栈、调度和等待队列读到内核服务。</p></div>
+    </div>
+    <p class="route-shortcut">已经知道文件名？<a href="demo_threadx/index.html#site-file-lookup">查 215 份文件及 Demo 使用标记</a>，或<a href="demo_threadx/macro-index.html">直接查宏</a>。</p>
+  </section>
+  <section class="home-block" id="site-editions" aria-labelledby="site-editions-title">
+    <p class="eyebrow">阅读口径</p><h2 id="site-editions-title">同一个文件，为什么有三个行数？</h2>
+    <p>以 <code>tx_port.h</code> 为例。三处都统计有效行，但源码并非同一版：</p>
+    <dl class="edition-key">
+      <div><dt>历史上游 · 422 行</dt><dd><a href="demo_threadx/layer-01.html">历史第 01 层导读</a>记录固定版本原件的计数。<a href="demo_threadx/index.html">全量目录</a>另列 Demo、构建和启动支撑，不把它们算作内核。</dd></div>
+      <div><dt>裁前学习版 · 423 行</dt><dd><a href="main/tx_port.h"><code>main/tx_port.h</code></a> 已接入 <a href="demo_threadx/autoconf.html">项目的 <code>autoconf.h</code></a>；原 214 个文件各多一条有效包含指令，不再与历史原件逐字节相同。</dd></div>
+      <div><dt>当前裁剪版 · 110 行</dt><dd><a href="demo_threadx/core/layer-01.html#f-001">裁剪导读</a>对应 <a href="threadx_core/tx_port.h"><code>threadx_core/tx_port.h</code></a>。只用 <strong>423 → 110</strong> 算裁剪量；没被 Demo 调用的 API 不因此删除。</dd></div>
+    </dl>
+    <p class="home-note">收录 <b>208</b> 份内核与端口、<b>6</b> 份 Demo 及支撑、<b>1</b> 份项目配置。原 214 份中的 <b>81 已用 / 133 未直接用</b> 是历史构建与链接标记，不是实板覆盖率；第 215 份配置头单列。</p>
+  </section>
+  <section class="home-block" id="site-evidence" aria-labelledby="site-evidence-title">
+    <p class="eyebrow">验证与来源</p><h2 id="site-evidence-title">每份证据能说明什么？</h2>
+    <dl class="evidence-key">
+      <div><dt><a href="demo_threadx/core/index.html#account">C2 · 裁掉了什么</a></dt><dd>先读统计口径，再查<a href="reports/core-c2/index.html">原始逐文件表</a>、哈希和编译器预处理结果。这一步没有生成固件。</dd></div>
+      <div><dt><a href="demo_threadx/core/verification.html">C3 · 固件是否等价</a></dt><dd>通用和 G474RE 板级目标各自与裁前基线比较。这里验证编译、链接和可烧写字节，当时没有烧录。</dd></div>
+      <div><dt><a href="reports/core-c5/index.html">C5 · 哪个镜像上过板</a></dt><dd>核对历史 G474RE 镜像的读回结果和线程计数，见<a href="reports/core-c5/index.html#samples">实板采样摘要</a>。教程在其他目录生成的可移植镜像不冒用这次实测。</dd></div>
+    </dl>
+    <p class="source-line"><strong>来源与许可：</strong><a href="THIRD-PARTY-NOTICES.rst">源码来源说明（RST）</a> · <a href="LICENSES/ThreadX-MIT.txt">ThreadX MIT 许可原文（TXT）</a> · <a href="https://github.com/eclipse-threadx/threadx/commit/3e8e85cdc1e51f9de577457377a4f9a4f6b9b82f">历史上游固定提交 ↗</a>。许可原文对应 ThreadX 来源代码，不是给本网站所有内容统一授权。裁剪配置与实测是学习资料，不是车规认证结论。</p>
+  </section>
+</main>
+<footer>ThreadX 6.2.0 · 中文源码读本　<a href="https://github.com/OsakaKasugaAyumu/threadx-core-g474re">GitHub 仓库 ↗</a> · <a href="#site-top">回到顶部 ↑</a></footer>
+</body>
+</html>
